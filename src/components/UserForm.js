@@ -30,7 +30,7 @@ const UserForm = () => {
     return (
         <div id="user-form">
             <form onSubmit={handleFormSubmit}>
-                <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+                <input type="text" placeholder="GitHub username" value={username} onChange={e => setUsername(e.target.value)} />
                 <input type="submit" value="Get account data" />
             </form>
             <TestContainer data={returnData ? returnData : null} />

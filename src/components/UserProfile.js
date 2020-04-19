@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import UserBio from "./UserBio";
+import UserUtilities from "../utils/user";
 
 const UserProfile = () => {
-    const [userData, setUserData] = useState(localStorage.getItem("user-account-data"));
+    const [userData, setUserData] = useState("");
+    const userUtil = new UserUtilities();
 
     useEffect(() => {
         if (localStorage.getItem("user-account-data")) {
@@ -10,27 +12,14 @@ const UserProfile = () => {
         }
     }, [localStorage.getItem("user-account-data")])
 
-    const getUserAccountField = (data, fieldName) => {
-        const dataObj = JSON.parse(data);
-
-        return dataObj[fieldName];
-    }
-
-    const setUserAccountField = (fieldName) => {
-        return getUserAccountField(
-            userData,
-            fieldName
-        );
-    }
-
     return (
         <div id="user-profile">
             <UserBio
-                username={userData ? setUserAccountField("login") : ""}
-                image={userData ? setUserAccountField("avatar_url") : ""}
-                name={userData ? setUserAccountField("name") : ""}
-                location={userData ? setUserAccountField("location") : ""}
-                profileURL={userData ? setUserAccountField("html_url") : ""}
+                username={userData ? userUtil.setUserAccountField(userData,"login") : ""}
+                image={userData ? userUtil.setUserAccountField(userData,"avatar_url") : ""}
+                name={userData ? userUtil.setUserAccountField(userData,"name") : ""}
+                location={userData ? userUtil.setUserAccountField(userData,"location") : ""}
+                profileURL={userData ? userUtil.setUserAccountField(userData,"html_url") : ""}
                 />
         </div>
     )

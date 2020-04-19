@@ -19,9 +19,19 @@
 }
 
 #user-profile img {
-  width: 250px;
-  height: 250px;
-  margin: 5px;
+  width: 220px;
+  height: 220px;
+  margin: 30px;
+}
+
+#user-bio a {
+  color: #387BA4;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+#user-bio a:focus {
+  color: #387BA4;
 }
 
 input {
