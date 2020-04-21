@@ -1,8 +1,8 @@
 import React from "react";
 
-const NavigatorTab = ({iconType, value}) => {
+const NavigatorTab = ({iconType, value, showData}) => {
     return (
-        <div>
+        <div onClick={showData}>
             <ion-icon name={iconType}></ion-icon>
             <p>{value}</p>
         </div>

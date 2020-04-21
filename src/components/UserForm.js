@@ -1,23 +1,15 @@
 import React, {useState} from "react";
 import TestContainer from "../TestContainer";
+import UserUtilities from "../utils/user";
 
 const UserForm = () => {
     const [username, setUsername] = useState("");
     const [returnData, setReturnData] = useState("");
 
-    const getUserProfile = async () => {
-        let data = await fetch(`https://api.github.com/users/${username}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-        return data.json();
-    }
+    const userUtil = new UserUtilities();
 
     const handleFormSubmit = () => {
-        getUserProfile()
+        userUtil.getUserProfile(username)
             .then(data => {
                 console.log(data);
                 localStorage.setItem("user-account-data", JSON.stringify(data));

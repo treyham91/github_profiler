@@ -34,6 +34,47 @@
   color: #387BA4;
 }
 
+#navigator {
+  margin: 120px 0px 0px 0px;
+}
+
+#navigator nav {
+  display: flex;
+}
+
+#navigator nav div {
+  display: flex;
+  margin: 10px;
+  padding: 5px;
+  border-bottom: 1px solid transparent;
+  transition: 0.3s;
+}
+
+#navigator nav div:hover {
+  border-bottom: 1px solid lightgray;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+#navigator nav div ion-icon {
+  margin-top: 3px;
+}
+
+#navigator nav div p {
+  margin: 0px 0px 0px 5px;
+}
+
+#other-info {
+  width: 50%;
+  text-align: left;
+  padding: 10px;
+}
+
+#other-info p span {
+  color: gray;
+  font-style: italic;
+}
+
 input {
   margin: 5px;
 }
