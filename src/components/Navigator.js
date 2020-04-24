@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import NavigatorTab from "./NavigatorTab";
 import UserUtilities from "../utils/user";
 
-const Navigator = ({children}) => {
+const Navigator = ({children, showRepos, showActivity}) => {
     const [navigatorTabs, setNavigatorTabs] = useState([]);
     const [repoData, setRepoData] = useState("");
     const [activityData, setActivityData] = useState("");
@@ -15,6 +15,7 @@ const Navigator = ({children}) => {
             userUtil.getUserRepos(username)
                 .then(data => {
                     setRepoData(JSON.stringify(data));
+                    localStorage.setItem("user-repos", JSON.stringify(data));
                 })
                 .catch(error => {
                     setRepoData(JSON.stringify(error));
@@ -30,6 +31,7 @@ const Navigator = ({children}) => {
             userUtil.getUserActivity(username)
                 .then(data => {
                     setActivityData(JSON.stringify(data));
+                    localStorage.setItem("user-activity", JSON.stringify(data));
                 })
                 .catch(error => {
                     setActivityData(JSON.stringify(error));
@@ -46,12 +48,12 @@ const Navigator = ({children}) => {
         }
         if (repoCount > 0) {
             setNavigatorTabs(tabs => tabs.concat(
-                {id: 1, iconType: 'code-slash-outline', value: 'Repos', loadFunction: () => null},
-                {id: 2, iconType: 'git-branch-outline', value: 'Recent Activity', loadFunction: () => null},
+                {id: 1, iconType: 'code-slash-outline', value: 'Repos', loadFunction: showRepos},
+                {id: 2, iconType: 'git-branch-outline', value: 'Recent Activity', loadFunction: showActivity},
                 ))
         } else {
             setNavigatorTabs(tabs => tabs.concat(
-                {id: 1, iconType: 'git-branch-outline', value: 'Recent Activity', loadFunction: () => null}
+                {id: 1, iconType: 'git-branch-outline', value: 'Recent Activity', loadFunction: showActivity}
             ))
         }
     }, [])
