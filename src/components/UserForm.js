@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import TestContainer from "../TestContainer";
 import UserUtilities from "../utils/user";
 
 const UserForm = () => {
@@ -25,7 +24,6 @@ const UserForm = () => {
                 <input type="text" placeholder="GitHub username" value={username} onChange={e => setUsername(e.target.value)} />
                 <input type="submit" value="Get account data" />
             </form>
-            <TestContainer data={returnData ? returnData : null} />
         </div>
     )
 }
