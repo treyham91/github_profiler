@@ -1,8 +1,8 @@
 import React from "react";
 
-const RepoItem = ({repoImage, repoName, createDate, modifyDate, language}) => {
+const RepoItem = ({repoURL, repoImage, repoName, createDate, modifyDate, language}) => {
     return (
-        <div className="repo-item">
+        <a href={repoURL} target="_blank" className="repo-item">
             <div style={{display: 'flex'}}>
                 <ion-icon name={repoImage}></ion-icon>
                 <div style={{display: 'block'}}>
@@ -12,7 +12,7 @@ const RepoItem = ({repoImage, repoName, createDate, modifyDate, language}) => {
                     <p><span>Language:</span> {language}</p>
                 </div>
             </div>
-        </div>
+        </a>
     )
 }
 

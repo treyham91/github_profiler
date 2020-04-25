@@ -22,12 +22,6 @@ const UserProfile = () => {
                 location={userData ? userUtil.setUserAccountField(userData,"location") : ""}
                 profileURL={userData ? userUtil.setUserAccountField(userData,"html_url") : ""}
                 />
-                <div id="other-info">
-                    <p><span>Bio:</span> {userData ? userUtil.setUserAccountField(userData,"bio") : "N/A"}</p>
-                    <p><span>Company:</span> {userData ? userUtil.setUserAccountField(userData,"company") : "N/A"}</p>
-                    <p><span>Email:</span> {userData ? userUtil.setUserAccountField(userData,"email") : "N/A"}</p>
-                    <p><span>Hireable:</span> {userData ? userUtil.setUserAccountField(userData,"hireable") : "N/A"}</p>
-                </div>
         </div>
     )
 }

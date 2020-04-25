@@ -1,10 +1,20 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Navigator from "./Navigator";
 import ActivityItem from "./repos/ActivityItem";
 import RepoItem from "./repos/RepoItem";
+import UserUtilities from "../utils/user";
+
 
 const UserBio = ({image, name, username, location, profileURL}) => {
     const [navigatorDisplay, setNavigatorDisplay] = useState(null);
+    const [userData, setUserData] = useState("");
+    const userUtil = new UserUtilities();
+
+    useEffect(() => {
+        if (localStorage.getItem("user-account-data")) {
+            setUserData(localStorage.getItem("user-account-data"))
+        }
+    }, [localStorage.getItem("user-account-data")])
 
     const setActivityIcon = (activityType) => {
         let iconType;
@@ -52,16 +62,25 @@ const UserBio = ({image, name, username, location, profileURL}) => {
             data.map((activity, index) => {
                 userActivityData.push({
                     id: index,
+                    repoName: activity.repo.name,
+                    activityDate: activity.created_at,
                     iconType: setActivityIcon(activity.type),
                     activityMessage: activity.type
                 })
             })
         } else {
-            return [{id: 0, iconType: "", activityMessage: ""}]
+            return [{id: 0, repoName: "", activityDate: "", iconType: "", activityMessage: ""}]
         }
 
         return userActivityData.map(activity => {
-            return <ActivityItem key={activity.id} iconType={activity.iconType} activityMessage={activity.activityMessage} />
+            return (
+                <ActivityItem
+                    key={activity.id}
+                    repoName={activity.repoName}
+                    activityDate={activity.activityDate}
+                    iconType={activity.iconType}
+                    activityMessage={activity.activityMessage} />
+            )
         });
     }
 
@@ -73,16 +92,18 @@ const UserBio = ({image, name, username, location, profileURL}) => {
             data.map((repo, index) => {
                 userRepoData.push({
                     id: index,
+                    repoURL: repo.html_url,
                     repoImage: setRepoIcon(repo.language),
                     repoName: repo.name,
-                    createDate: repo.created_at,
-                    modifyDate: repo.updated_at,
+                    createDate: new Date(repo.created_at).toDateString(),
+                    modifyDate: new Date(repo.updated_at).toDateString(),
                     language: repo.language
                 })
             })
         } else {
             return [{
                 id: 0,
+                repoURL: "",
                 repoImage: "",
                 repoName: "",
                 createDate: "",
@@ -95,6 +116,7 @@ const UserBio = ({image, name, username, location, profileURL}) => {
             return (
                 <RepoItem
                     key={repo.id}
+                    repoURL={repo.repoURL}
                     createDate={repo.createDate}
                     language={repo.language}
                     modifyDate={repo.modifyDate}
@@ -106,28 +128,34 @@ const UserBio = ({image, name, username, location, profileURL}) => {
 
     return (
         <div id="user-bio">
-            <div style={{display: 'flex'}}>
+            <div id="user-bio-container">
                 <img src={image} alt="No avatar" />
                 <div style={{display: 'block'}}>
-                    <div style={{display: 'block', textAlign: 'left', margin: '30px 0px 0px 0px'}}>
+                    <div style={{display: 'block', margin: '30px 0px 0px 0px'}}>
                         <p style={{margin: '0px 0px 5px 0px', fontSize: '20px'}}>{name}</p>
                         <div style={{display: 'flex'}}>
                             <ion-icon name="location"></ion-icon>
                             <p style={{margin: '0px 0px 0px 5px', fontSize: '13px'}}>{location}</p>
                         </div>
                         <a href={profileURL}>{username}</a>
+                        <div id="other-info">
+                            <p><span>Bio:</span> {userData ? userUtil.setUserAccountField(userData,"bio") : "N/A"}</p>
+                            <p><span>Company:</span> {userData ? userUtil.setUserAccountField(userData,"company") : "N/A"}</p>
+                            <p><span>Email:</span> {userData ? userUtil.setUserAccountField(userData,"email") : "N/A"}</p>
+                            <p><span>Hireable:</span> {userData ? userUtil.setUserAccountField(userData,"hireable") : "N/A"}</p>
+                        </div>
                     </div>
-                    <Navigator
-                        showActivity={() => setNavigatorDisplay("activity")}
-                        showRepos={() => setNavigatorDisplay("repos")}>
-                        {navigatorDisplay === "activity"
-                            ? showActivityData()
-                            : navigatorDisplay === "repos"
-                                ? showRepoData()
-                                : null}
-                    </Navigator>
                 </div>
             </div>
+            <Navigator
+                showActivity={() => setNavigatorDisplay("activity")}
+                showRepos={() => setNavigatorDisplay("repos")}>
+                {navigatorDisplay === "activity"
+                    ? showActivityData()
+                    : navigatorDisplay === "repos"
+                        ? showRepoData()
+                        : null}
+            </Navigator>
         </div>
     )
 }

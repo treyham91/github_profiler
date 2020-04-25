@@ -65,7 +65,10 @@ const Navigator = ({children, showRepos, showActivity}) => {
                     return <NavigatorTab key={tab.id} value={tab.value} iconType={tab.iconType} showData={tab.loadFunction} />
                 })}
             </nav>
-            {children}
+            <hr style={{margin: '0px 10px 20px 10px'}} />
+            <div id="navigator-children">
+                {children}
+            </div>
         </div>
     )
 }

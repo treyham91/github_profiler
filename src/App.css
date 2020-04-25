@@ -13,7 +13,7 @@
   border-radius: 5px;
   background-color: #F1F1F1;
   border: none;
-  width: 50%;
+  width: 70%;
   margin: 50px auto auto auto;
   box-shadow: 0px 2px 18px -4px rgba(0,0,0,0.50);
 }
@@ -22,6 +22,10 @@
   width: 220px;
   height: 220px;
   margin: 30px;
+}
+
+#user-bio {
+  padding: 10px;
 }
 
 #user-bio a {
@@ -34,8 +38,12 @@
   color: #387BA4;
 }
 
-#navigator {
-  margin: 120px 0px 0px 0px;
+#user-bio-container {
+  display: flex;
+}
+
+#user-bio-container div:nth-child(1) {
+  text-align: left;
 }
 
 #navigator nav {
@@ -64,8 +72,13 @@
   margin: 0px 0px 0px 5px;
 }
 
+#navigator-children {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
 #other-info {
-  width: 50%;
   text-align: left;
   padding: 10px;
 }
@@ -73,6 +86,42 @@
 #other-info p span {
   color: gray;
   font-style: italic;
+}
+
+.repo-item {
+  max-width: 300px;
+  width: 300px;
+  padding: 5px;
+  margin: 5px;
+  text-align: left;
+  font-size: 13px;
+  border: 1px solid gray;
+  transition: 0.3s;
+  color: black;
+}
+
+.repo-item:hover {
+  cursor: pointer;
+  box-shadow: 0px 2px 18px -4px rgba(0,0,0,0.20);
+  transition: 0.3s;
+}
+
+.repo-item ion-icon {
+  height: 20px;
+  width: 15px;
+}
+
+.repo-item span {
+  font-style: italic;
+}
+
+.activity-item {
+  max-width: 300px;
+  width: 300px;
+  padding: 5px;
+  margin: 5px;
+  text-align: left;
+  border: 1px solid gray;
 }
 
 input {
@@ -108,4 +157,38 @@ input[type="submit"]:hover {
 
 input[type="submit"]:focus {
   outline: none;
+}
+
+@media screen and (max-width: 640px) {
+  #user-bio-container {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  #toolbar {
+    height: 100px;
+    display: block;
+  }
+
+  #user-bio-container img {
+    margin: 10px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #user-bio-container img {
+    width: 100%;
+    margin: 0px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  #user-form {
+    display: block;
+  }
+
+  #toolbar {
+    height: 150px;
+  }
 }
